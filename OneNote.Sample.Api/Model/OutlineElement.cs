@@ -105,6 +105,34 @@ namespace OneNote.Sample.Api
             }
         }
 
+        public Size Size
+        {
+            get
+            {
+                Size size = Size.Empty;
+                if (Attributes.TryGetValue("width", out string width))
+                    size.Width = int.Parse(width);
+                if (Attributes.TryGetValue("height", out string height))
+                    size.Height = int.Parse(height);
+                return size;
+            }
+            set
+            {
+                Attributes["width"] = value.Width.ToString();
+                Attributes["height"] = value.Height.ToString();
+            }
+        }
+
+        public string Src
+        {
+            get
+            {
+                Attributes.TryGetValue("src", out string src);
+                return src;
+            }
+            set { Attributes["src"] = value; }
+        }
+
         public string Text { get; set; }
 
         public string XPath { get; set; }
@@ -137,10 +165,16 @@ namespace OneNote.Sample.Api
                 str.Append($"top {Margins.Right}pt; ");
 
             if (!string.IsNullOrEmpty(Href))
-                str.Append($"href: {Href}");
+                str.Append($"href: {Href}; ");
 
             if (!string.IsNullOrEmpty(Position))
-                str.Append($"position: {Position}");
+                str.Append($"position: {Position}; ");
+
+            if (Size != Size.Empty)
+                str.Append($"size: {Size.Width}x{Size.Height}; ");
+
+            if (!string.IsNullOrEmpty(Src))
+                str.Append($"source: {Src}; ");
 
             return str.ToString();
         }
