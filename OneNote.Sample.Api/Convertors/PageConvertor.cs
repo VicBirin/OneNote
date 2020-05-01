@@ -24,9 +24,10 @@ namespace OneNote.Sample.Api.Convertors
             dest.CreatedTime = src.CreatedDateTime;
             dest.ElementType = ElementType.Page;
 
-            dest.Document.LoadHtml(ReadPageContent(src.Content));
+            var content = ReadPageContent(src.Content);
+            dest.Document.LoadHtml(content);
 
-            dest[0] = ReadDocumentBody(dest, dest.Document.DocumentNode.SelectSingleNode("//body"));
+            dest[0] = ReadDocumentBody(null, dest.Document.DocumentNode.SelectSingleNode("//body"));
 
             return dest;
         }
@@ -78,71 +79,26 @@ namespace OneNote.Sample.Api.Convertors
             }
 
             var elm = ParseElement(node);
-            elm.ParentElement = parent;
-
-            if (parent is IOutlineElement)
+            
+            if (parent != null)
             {
+                elm.ParentElement = parent;
                 ((OutlineElement)parent).AddChildElement(elm);
             }
-            
+
             if (node.NextSibling != null) elm.NextSibling = ParseElement(node.NextSibling);
             if(node.PreviousSibling != null) elm.PreviousSibling = ParseElement(node.PreviousSibling);
 
             foreach (HtmlNode n in node.ChildNodes)
             {
-                var nElm = ParseElement(n);
-                elm.AddChildElement(nElm);
-                nElm.ParentElement = elm;
-                if (n.NextSibling != null) nElm.NextSibling = ParseElement(n.NextSibling);
-                if(n.PreviousSibling != null) nElm.PreviousSibling = ParseElement(n.PreviousSibling);
-
-                if (n.HasChildNodes)
-                {
-                    ReadDocumentBody(nElm, n);
-                }
+                ReadDocumentBody(elm, n);
             }
             return elm;
         }
 
         private OutlineElement ParseElement(HtmlNode node)
         {
-            OutlineElement elm = null;
-            switch (node.Name)
-            {
-                case "body":
-                    elm = new OutlineElement(ElementType.Body);
-                    break;
-                case "div":
-                    elm = new OutlineElement(ElementType.Block);
-                    break;
-                case "img":
-                    elm = new OutlineElement(ElementType.Image);
-                    break;
-                case "a":
-                    elm = new OutlineElement(ElementType.Image);
-                    break;
-                case "h1":
-                    elm = new OutlineElement(ElementType.Heading);
-                    break;
-                case "h2":
-                    elm = new OutlineElement(ElementType.Heading);
-                    break;
-                case "h3":
-                    elm = new OutlineElement(ElementType.Heading);
-                    break;
-                case "h4":
-                    elm = new OutlineElement(ElementType.Heading);
-                    break;
-                case "#text":
-                    elm = new OutlineElement(ElementType.Text);
-                    break;
-                case "p":
-                    elm = new OutlineElement(ElementType.Paragraph);
-                    break;
-                default:
-                    elm = new OutlineElement(ElementType.Element);
-                    break;
-            }
+            var elm = CreateElement(node);
 
             if(node.NodeType == HtmlNodeType.Text)
             {
@@ -169,6 +125,49 @@ namespace OneNote.Sample.Api.Convertors
                         elm.Attributes.Add(attr.Name, attr.Value);
                     }
                 }
+            }
+
+            return elm;
+        }
+
+        private OutlineElement CreateElement(HtmlNode node)
+        {
+            OutlineElement elm = null;
+            switch (node.Name)
+            {
+                case "body":
+                    elm = new OutlineElement(ElementType.Body);
+                    break;
+                case "div":
+                    elm = new OutlineElement(ElementType.Block);
+                    break;
+                case "img":
+                    elm = new OutlineElement(ElementType.Image);
+                    break;
+                case "a":
+                    elm = new OutlineElement(ElementType.Url);
+                    break;
+                case "h1":
+                    elm = new OutlineElement(ElementType.Heading1);
+                    break;
+                case "h2":
+                    elm = new OutlineElement(ElementType.Heading2);
+                    break;
+                case "h3":
+                    elm = new OutlineElement(ElementType.Heading3);
+                    break;
+                case "h4":
+                    elm = new OutlineElement(ElementType.Heading4);
+                    break;
+                case "#text":
+                    elm = new OutlineElement(ElementType.Text);
+                    break;
+                case "p":
+                    elm = new OutlineElement(ElementType.Paragraph);
+                    break;
+                default:
+                    elm = new OutlineElement(ElementType.Element);
+                    break;
             }
 
             return elm;

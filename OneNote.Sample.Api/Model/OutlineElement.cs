@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Printing;
+using System.Text;
 
 namespace OneNote.Sample.Api
 {
@@ -53,6 +54,27 @@ namespace OneNote.Sample.Api
                 Styles["color"] = converter.ConvertToString(value);
             }
         }
+
+        public string Href
+        {
+            get
+            {
+                Attributes.TryGetValue("href", out string href);
+                return href;
+            }
+            set { Attributes["href"] = value; }
+        }
+
+        public string Position
+        {
+            get
+            {
+                Styles.TryGetValue("position", out string position);
+                return position; 
+            }
+            set { Styles["position"] = value; }
+        }
+
         public Margins Margins {
             get
             {
@@ -82,6 +104,7 @@ namespace OneNote.Sample.Api
                 Styles["margin-right"] = value.Right + "pt";
             }
         }
+
         public string Text { get; set; }
 
         public string XPath { get; set; }
@@ -91,8 +114,35 @@ namespace OneNote.Sample.Api
 
         public override string ToString()
         {
-            var str = $"Type: {ElementType}; Text: '{Text}'; Font: {(Font == null ? "none" : Font.Name)}, {FontSize}pt; Color: {Color.Name}; Margins: top {Margins.Top}pt, bottom {Margins.Bottom}pt";
-            return str;
+            var str = new StringBuilder($"Type: {ElementType}: ");
+            if (!string.IsNullOrEmpty(Text))
+                str.Append($"'{Text.Trim('\r', '\n').Trim()}'; ");
+
+            if (Font != null)
+                str.Append($"font: {Font.Name}, {FontSize}pt;");
+
+            if (Color != Color.Empty)
+                str.Append($"color: {Color.Name}; ");
+
+            if (Margins.Top > 0)
+                str.Append($"top {Margins.Top}pt; ");
+
+            if (Margins.Bottom > 0)
+                str.Append($"top {Margins.Bottom}pt; ");
+
+            if (Margins.Left > 0)
+                str.Append($"top {Margins.Left}pt; ");
+
+            if (Margins.Right > 0)
+                str.Append($"top {Margins.Right}pt; ");
+
+            if (!string.IsNullOrEmpty(Href))
+                str.Append($"href: {Href}");
+
+            if (!string.IsNullOrEmpty(Position))
+                str.Append($"position: {Position}");
+
+            return str.ToString();
         }
     }
 }

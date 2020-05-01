@@ -19,7 +19,7 @@
   <Class Name="OneNote.Sample.Api.CompositeElement&lt;T&gt;">
     <Position X="2.5" Y="5.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>QAAAAAAAAAAAABAACAgAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
+      <HashCode>QAAAAAEAAAAAABAACAgAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Model\CompositeElement.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -82,9 +82,9 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="OneNote.Sample.Api.ElementType">
-    <Position X="7.25" Y="2.5" Width="1.5" />
+    <Position X="7" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAQAEAAAAgBAAAAAAAEABAAAAAACAAAAAA=</HashCode>
+      <HashCode>ABAEAAAAAAAQAEAAAAgBAAAAAAAEABAACAAACCAAAAA=</HashCode>
       <FileName>Model\ElementType.cs</FileName>
     </TypeIdentifier>
   </Enum>

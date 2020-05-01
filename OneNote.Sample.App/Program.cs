@@ -40,7 +40,7 @@ namespace OneNote.Sample.App
 
                 // display page info
                 Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Green;
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Title: " + page.Title);
                 Console.WriteLine(new string('-', 50));
                 Console.WriteLine("Document Blocks:");
@@ -81,7 +81,6 @@ namespace OneNote.Sample.App
                 {
                     PrintChildElements(element.GetChildElements<OutlineElement>());
                 }
-                Console.WriteLine();
             }
         }
 
