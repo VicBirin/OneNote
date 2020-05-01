@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Printing;
+using System.Globalization;
 using System.Text;
 
 namespace OneNote.Sample.Api
@@ -83,15 +83,15 @@ namespace OneNote.Sample.Api
                 Styles.TryGetValue("margin-left", out string leftStr);
                 Styles.TryGetValue("margin-right", out string rightStr);
 
-                int top = 0;
-                int bottom = 0;
-                int left = 0;
-                int right = 0;
+                float top = 0;
+                float bottom = 0;
+                float left = 0;
+                float right = 0;
 
-                if (!string.IsNullOrEmpty(topStr)) int.TryParse(topStr.Replace("pt", ""), out top);
-                if (!string.IsNullOrEmpty(bottomStr)) int.TryParse(bottomStr.Replace("pt", ""), out bottom);
-                if (!string.IsNullOrEmpty(leftStr)) int.TryParse(leftStr.Replace("pt", ""), out left);
-                if (!string.IsNullOrEmpty(rightStr)) int.TryParse(rightStr.Replace("pt", ""), out right);
+                if (!string.IsNullOrEmpty(topStr)) float.TryParse(topStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out top);
+                if (!string.IsNullOrEmpty(bottomStr)) float.TryParse(bottomStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out bottom);
+                if (!string.IsNullOrEmpty(leftStr)) float.TryParse(leftStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out left);
+                if (!string.IsNullOrEmpty(rightStr)) float.TryParse(rightStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out right);
 
                 var margins = new Margins(left,right,top,bottom);
                 return margins;
