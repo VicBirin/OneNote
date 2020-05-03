@@ -125,57 +125,21 @@ namespace OneNote.Sample.Api
             }
         }
 
-        public string Src
+        public new void LoadElement(HtmlNode node)
         {
-            get
+            base.LoadElement(node);
+
+            if (node.NodeType == HtmlNodeType.Text)
             {
-                Attributes.TryGetValue("src", out string src);
-                return src;
+                Text = ((HtmlTextNode)node).Text;
             }
-            set { Attributes["src"] = value; }
+
+            XPath = node.XPath;
         }
 
         public string Text { get; set; }
 
         public string XPath { get; set; }
-
-        public Dictionary<string, string> Attributes { get; set; }
-        public Dictionary<string, string> Styles { get; set; }
-
-        public void LoadElement(HtmlNode node)
-        {
-            if (node.NodeType == HtmlNodeType.Text)
-            {
-               Text = ((HtmlTextNode)node).Text;
-            }
-
-            XPath = node.XPath;
-
-            if (node.Attributes != null)
-            {
-                foreach (var attr in node.Attributes)
-                {
-                    if (attr.Name == "style" && !string.IsNullOrEmpty(attr.Value))
-                    {
-                        var styles = attr.Value.Split(';');
-                        foreach (var style in styles)
-                        {
-                            var pair = style.Split(':');
-                            Styles.Add(pair.First(), pair.Last());
-                        }
-                    }
-                    else
-                    {
-                        Attributes.Add(attr.Name, attr.Value);
-                    }
-                }
-            }
-        }
-
-        public void SaveElement()
-        {
-            throw new System.NotImplementedException();
-        }
 
         public override string ToString()
         {
@@ -209,9 +173,6 @@ namespace OneNote.Sample.Api
 
             if (Size != Size.Empty)
                 str.Append($"size: {Size.Width}x{Size.Height}; ");
-
-            if (!string.IsNullOrEmpty(Src))
-                str.Append($"source: {Src}; ");
 
             return str.ToString();
         }

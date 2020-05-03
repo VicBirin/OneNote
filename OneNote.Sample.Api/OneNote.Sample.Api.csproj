@@ -145,6 +145,7 @@
     <Compile Include="Factory\NotebookFactory.cs" />
     <Compile Include="Factory\OneNoteFactory.cs" />
     <Compile Include="Interfaces\IPageChildElement.cs" />
+    <Compile Include="Model\ImageElement.cs" />
     <Compile Include="Model\Margins.cs" />
     <Compile Include="Model\Notebook.cs" />
     <Compile Include="Model\OutlineElement.cs" />

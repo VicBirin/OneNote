@@ -46,7 +46,7 @@ namespace OneNote.Sample.App
                 Console.WriteLine("Document Blocks:");
                 Console.WriteLine();
 
-                PrintChildElements(page.GetChildElements<OutlineElement>());
+                PrintChildElements(page.GetChildElements<Element>());
 
                 Console.ReadKey();
             }
@@ -72,14 +72,15 @@ namespace OneNote.Sample.App
             }
         }
 
-        private static void PrintChildElements(List<OutlineElement> elements)
+        private static void PrintChildElements(List<Element> elements)
         {
             foreach (var element in elements)
             {
                 Console.WriteLine(element);
-                if (element.GetChildElements<OutlineElement>().Count > 0)
+
+                if (element is ICompositeElement && ((ICompositeElement)element).GetChildElements<Element>().Count > 0)
                 {
-                    PrintChildElements(element.GetChildElements<OutlineElement>());
+                    PrintChildElements(((ICompositeElement)element).GetChildElements<Element>());
                 }
             }
         }

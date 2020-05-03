@@ -42,8 +42,16 @@
   <Class Name="OneNote.Sample.Api.OutlineElement">
     <Position X="2.5" Y="8.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAABAgAAkAAAAAgAQAAAAAABABAIAiAACAAA=</HashCode>
+      <HashCode>AAAAAAgAAABAgAAkAAAAAgAQAAAAAABABAAAiAASAQA=</HashCode>
       <FileName>Model\OutlineElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OneNote.Sample.Api.ImageElement">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABAIAAAAAAAA=</HashCode>
+      <FileName>Model\ImageElement.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

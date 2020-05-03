@@ -27,7 +27,7 @@ namespace OneNote.Sample.Api.Convertors
             var content = ReadPageContent(src.Content);
             dest.Document.LoadHtml(content);
 
-            dest[0] = ReadDocumentBody(null, dest.Document.DocumentNode.SelectSingleNode("//body"));
+            dest[0] = (IPageChildElement)ReadDocumentBody(null, dest.Document.DocumentNode.SelectSingleNode("//body"));
 
             return dest;
         }
@@ -71,7 +71,7 @@ namespace OneNote.Sample.Api.Convertors
             return stream;
         }
 
-        private OutlineElement ReadDocumentBody(ICompositeElement parent, HtmlNode node)
+        private Element ReadDocumentBody(Element parent, HtmlNode node)
         {
             if (node == null)
             {
@@ -82,8 +82,8 @@ namespace OneNote.Sample.Api.Convertors
             
             if (parent != null)
             {
-                elm.ParentElement = parent;
-                ((OutlineElement)parent).AddChildElement(elm);
+                elm.ParentElement = (ICompositeElement)parent;
+                ((OutlineElement)parent).AddChildElement((IOutlineElementChild)elm);
             }
 
             if (node.NextSibling != null) elm.NextSibling = ParseElement(node.NextSibling);
@@ -96,16 +96,16 @@ namespace OneNote.Sample.Api.Convertors
             return elm;
         }
 
-        private OutlineElement ParseElement(HtmlNode node)
+        private Element ParseElement(HtmlNode node)
         {
             var elm = CreateElement(node);
             elm.LoadElement(node);
             return elm;
         }
 
-        private OutlineElement CreateElement(HtmlNode node)
+        private Element CreateElement(HtmlNode node)
         {
-            OutlineElement elm = null;
+            Element elm = null;
             switch (node.Name)
             {
                 case "body":
@@ -115,7 +115,7 @@ namespace OneNote.Sample.Api.Convertors
                     elm = new OutlineElement(ElementType.Block);
                     break;
                 case "img":
-                    elm = new OutlineElement(ElementType.Image);
+                    elm = new ImageElement(ElementType.Image);
                     break;
                 case "a":
                     elm = new OutlineElement(ElementType.Url);
