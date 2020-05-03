@@ -2,3 +2,9 @@
 
 OneNote.Sample.App/obj
 ._.gitignore
+/OneNote.Sample.Api/bin/Debug
+/OneNote.Sample.Api/obj/Debug
+/OneNote.Sample.Api.Tests/bin/Debug
+/OneNote.Sample.Api.Tests/obj/Debug
+/OneNote.Sample.App/bin/Debug
+/packages

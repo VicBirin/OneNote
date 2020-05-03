@@ -9,7 +9,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OneNote.Sample.Api.Element">
-    <Position X="0.5" Y="5.25" Width="1.5" />
+    <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAgBAAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Element.cs</FileName>
@@ -17,7 +17,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OneNote.Sample.Api.CompositeElement&lt;T&gt;">
-    <Position X="2.5" Y="5.25" Width="2" />
+    <Position X="2.5" Y="4.5" Width="2" />
     <TypeIdentifier>
       <HashCode>QAAAAAEAAAAAABAACAgAAAAAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>Model\CompositeElement.cs</FileName>
@@ -25,7 +25,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OneNote.Sample.Api.Page">
-    <Position X="5.25" Y="5.25" Width="2" />
+    <Position X="5.25" Y="4.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAECAAAAAAQAAEAAIAAAAAAAAAAAAAADAAAAAAAAAAE=</HashCode>
       <FileName>Model\Page.cs</FileName>
@@ -36,6 +36,14 @@
     <TypeIdentifier>
       <HashCode>AAACEQAAAAAAAAAgAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Section.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OneNote.Sample.Api.OutlineElement">
+    <Position X="2.5" Y="8.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAABAgAAkAAAAAgAQAAAAAABABAIAiAACAAA=</HashCode>
+      <FileName>Model\OutlineElement.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -56,7 +64,7 @@
   <Interface Name="OneNote.Sample.Api.IOutlineElement">
     <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAgAAABAAAAAAAAAAgAQAAAAAAAABAAAiAACAAA=</HashCode>
+      <HashCode>AAAABAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IOutlineElement.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -82,9 +90,9 @@
     </TypeIdentifier>
   </Interface>
   <Enum Name="OneNote.Sample.Api.ElementType">
-    <Position X="7" Y="2" Width="1.5" />
+    <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAEAAAAAAAQAEAAAAgBAAAAAAAEABAACAAACCAAAAA=</HashCode>
+      <HashCode>ABAEAAAAAABQAEAAAAghAAAAAAAEABAACgAACAAAAQA=</HashCode>
       <FileName>Model\ElementType.cs</FileName>
     </TypeIdentifier>
   </Enum>
