@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using HtmlAgilityPack;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace OneNote.Sample.Api
@@ -139,6 +141,41 @@ namespace OneNote.Sample.Api
 
         public Dictionary<string, string> Attributes { get; set; }
         public Dictionary<string, string> Styles { get; set; }
+
+        public void LoadElement(HtmlNode node)
+        {
+            if (node.NodeType == HtmlNodeType.Text)
+            {
+               Text = ((HtmlTextNode)node).Text;
+            }
+
+            XPath = node.XPath;
+
+            if (node.Attributes != null)
+            {
+                foreach (var attr in node.Attributes)
+                {
+                    if (attr.Name == "style" && !string.IsNullOrEmpty(attr.Value))
+                    {
+                        var styles = attr.Value.Split(';');
+                        foreach (var style in styles)
+                        {
+                            var pair = style.Split(':');
+                            Styles.Add(pair.First(), pair.Last());
+                        }
+                    }
+                    else
+                    {
+                        Attributes.Add(attr.Name, attr.Value);
+                    }
+                }
+            }
+        }
+
+        public void SaveElement()
+        {
+            throw new System.NotImplementedException();
+        }
 
         public override string ToString()
         {

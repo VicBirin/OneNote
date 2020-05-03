@@ -99,34 +99,7 @@ namespace OneNote.Sample.Api.Convertors
         private OutlineElement ParseElement(HtmlNode node)
         {
             var elm = CreateElement(node);
-
-            if(node.NodeType == HtmlNodeType.Text)
-            {
-                elm.Text = ((HtmlTextNode)node).Text;
-            }
-
-            elm.XPath = node.XPath;
-
-            if (node.Attributes != null)
-            {
-                foreach (var attr in node.Attributes)
-                {
-                    if (attr.Name == "style" && !string.IsNullOrEmpty(attr.Value))
-                    {
-                        var styles = attr.Value.Split(';');
-                        foreach (var style in styles)
-                        {
-                            var pair = style.Split(':');
-                            elm.Styles.Add(pair.First(), pair.Last());
-                        }
-                    }
-                    else
-                    {
-                        elm.Attributes.Add(attr.Name, attr.Value);
-                    }
-                }
-            }
-
+            elm.LoadElement(node);
             return elm;
         }
 
