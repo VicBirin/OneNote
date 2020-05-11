@@ -5,7 +5,7 @@ using System.Text;
 
 namespace OneNote.Sample.Api.Convertors
 {
-    public class GraphPageConverter : IPageConvertor<Microsoft.Graph.OnenotePage>
+    public class GraphPageConverter : IPageConverter<Microsoft.Graph.OnenotePage>
     {
         public Page ConvertToLocal(Microsoft.Graph.OnenotePage src, Notebook parentNotebook, Document parentDocument)
         {

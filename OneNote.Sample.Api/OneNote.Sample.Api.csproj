@@ -132,13 +132,13 @@
     <Compile Include="Interfaces\IDocumentConverter.cs" />
     <Compile Include="Interfaces\INotebookConverter.cs" />
     <Compile Include="Interfaces\IOneNoteConverter.cs" />
-    <Compile Include="Interfaces\IPageConvertor.cs" />
     <Compile Include="Factory\DriveFactory.cs" />
     <Compile Include="Factory\GraphClientFactory.cs" />
     <Compile Include="Helpers\AuthHandler.cs" />
     <Compile Include="Helpers\MsalAuthenticationProvider.cs" />
     <Compile Include="Helpers\TokenCacheHelper.cs" />
     <Compile Include="Interfaces\IOutlineElementChild.cs" />
+    <Compile Include="Interfaces\IPageConverter.cs" />
     <Compile Include="Model\CompositeElement.cs" />
     <Compile Include="Model\Document.cs" />
     <Compile Include="Model\Element.cs" />
