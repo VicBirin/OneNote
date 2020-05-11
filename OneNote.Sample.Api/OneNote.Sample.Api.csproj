@@ -129,10 +129,13 @@
     <Compile Include="Convertors\GraphDocumentConverter.cs" />
     <Compile Include="Convertors\GraphNotebookConverter.cs" />
     <Compile Include="Convertors\GraphPageConverter.cs" />
+    <Compile Include="Factory\GraphDocumentFactory.cs" />
+    <Compile Include="Factory\GraphDriveFactory.cs" />
+    <Compile Include="Factory\GraphNotebookFactory.cs" />
+    <Compile Include="Factory\GraphPageFactory.cs" />
     <Compile Include="Interfaces\IDocumentConverter.cs" />
     <Compile Include="Interfaces\INotebookConverter.cs" />
     <Compile Include="Interfaces\IOneNoteConverter.cs" />
-    <Compile Include="Factory\DriveFactory.cs" />
     <Compile Include="Factory\GraphClientFactory.cs" />
     <Compile Include="Helpers\AuthHandler.cs" />
     <Compile Include="Helpers\MsalAuthenticationProvider.cs" />
@@ -147,7 +150,6 @@
     <Compile Include="Interfaces\IElement.cs" />
     <Compile Include="Interfaces\INotebookChildElement.cs" />
     <Compile Include="Interfaces\IOutlineElement.cs" />
-    <Compile Include="Factory\NotebookFactory.cs" />
     <Compile Include="Factory\OneNoteFactory.cs" />
     <Compile Include="Interfaces\IPageChildElement.cs" />
     <Compile Include="Model\ImageElement.cs" />
@@ -155,9 +157,7 @@
     <Compile Include="Model\Notebook.cs" />
     <Compile Include="Model\OutlineElement.cs" />
     <Compile Include="Model\Page.cs" />
-    <Compile Include="Factory\PageFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Factory\SectionFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

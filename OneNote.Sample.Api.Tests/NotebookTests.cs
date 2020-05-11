@@ -8,7 +8,7 @@ namespace OneNote.Sample.Api.Tests
         [TestMethod]
         public void GetAllNotebooks()
         {
-            var factory = new NotebookFactory();
+            var factory = new GraphNotebookFactory();
             var list = factory.GetAllItems();
 
             Assert.IsNotNull(list);
@@ -20,7 +20,7 @@ namespace OneNote.Sample.Api.Tests
         {
             var id = "0-3AE547978144BF51!117";
 
-            var factory = new NotebookFactory();
+            var factory = new GraphNotebookFactory();
             var notebook = factory.GetItem(id);
 
             Assert.IsNotNull(notebook);
@@ -35,7 +35,7 @@ namespace OneNote.Sample.Api.Tests
                 DisplayName = "New Notebook",
             };
 
-            var factory = new NotebookFactory();
+            var factory = new GraphNotebookFactory();
             var notebook = factory.AddItem(notebookInst);
 
             Assert.IsNotNull(notebook.Id);

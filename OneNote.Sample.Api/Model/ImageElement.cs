@@ -58,7 +58,7 @@ namespace OneNote.Sample.Api
 
             if (!string.IsNullOrEmpty(Src))
             {
-                str.Append($"source: {Src}; ");
+                str.Append($"source: '{Src}'; ");
             }
 
             return str.ToString();

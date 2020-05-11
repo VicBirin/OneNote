@@ -15,12 +15,12 @@ namespace OneNote.Sample.Api
     /// <summary>
     /// Handles Page CRUD operations
     /// </summary>
-    public class PageFactory : OneNoteFactory<Page>
+    public class GraphPageFactory : OneNoteFactory<Page>
     {
         private GraphServiceClient client;
         private GraphPageConverter pageConvertor;
 
-        public PageFactory()
+        public GraphPageFactory()
         {
             client = GraphClientFactory.GetGraphServiceClient();
             pageConvertor = new GraphPageConverter();
@@ -68,26 +68,27 @@ namespace OneNote.Sample.Api
 
         private async Task<OnenotePage> AddItemAsync(Page item, string parentId)
         {
-            var content = new MultipartFormDataContent("MyPartBoundary198374");
+            //var content = new MultipartFormDataContent("MyPartBoundary198374");
 
-            var stringContent = new StringContent(item.Source.ParsedText, Encoding.UTF8, "text/html");
-            content.Add(stringContent, "Presentation");
+            //var stringContent = new StringContent(item.Source.ParsedText, Encoding.UTF8, "text/html");
+            //content.Add(stringContent, "Presentation");
 
-            var stream = new MemoryStream();
-            item.Source.Save(stream, Encoding.UTF8);
-            stream.Position = 0;
-            var bytesArr = new byte[stream.Length];
-            stream.Read(bytesArr, 0, bytesArr.Length);
+            //var stream = new MemoryStream();
+            //item.Source.Save(stream, Encoding.UTF8);
+            //stream.Position = 0;
+            //var bytesArr = new byte[stream.Length];
+            //stream.Read(bytesArr, 0, bytesArr.Length);
 
-            var binaryContent = new ByteArrayContent(bytesArr);
-            binaryContent.Headers.Add("Content-Type", "image/jpeg");
-            binaryContent.Headers.Add("Content-Disposition", "form-data; name=\"ImageBody\"");
-            content.Add(binaryContent, "ImageBody");
+            //var binaryContent = new ByteArrayContent(bytesArr);
+            //binaryContent.Headers.Add("Content-Type", "image/jpeg");
+            //binaryContent.Headers.Add("Content-Disposition", "form-data; name=\"ImageBody\"");
+            //content.Add(binaryContent, "ImageBody");
 
             // wait for creating page before loading html content
-            var page = await client.Me.Onenote.Sections[parentId].Pages.Request().AddAsync(content);
+            //var page = await client.Me.Onenote.Sections[parentId].Pages.Request().AddAsync(content);
 
-            return page;
+            //return page;
+            return null;
         }
 
         private async Task<Stream> LoadPageContent(OnenotePage page)

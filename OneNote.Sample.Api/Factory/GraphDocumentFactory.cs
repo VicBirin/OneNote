@@ -9,32 +9,32 @@ namespace OneNote.Sample.Api
     /// <summary>
     /// Handles OneNote sections CRUD operations
     /// </summary>
-    public class SectionFactory : OneNoteFactory<Document>
+    public class GraphDocumentFactory : OneNoteFactory<Document>
     {
         private GraphServiceClient client;
-        private GraphDocumentConverter sectionConvertor;
+        private GraphDocumentConverter documentConverter;
 
-        public SectionFactory()
+        public GraphDocumentFactory()
         {
             client = GraphClientFactory.GetGraphServiceClient();
-            sectionConvertor = new GraphDocumentConverter();
+            documentConverter = new GraphDocumentConverter();
         }
 
         public override Document AddItem(Document item, string parentId)
         {
-            var oneNoteNode = sectionConvertor.ConvertToOneNote(item);
+            var oneNoteNode = documentConverter.ConvertToOneNote(item);
             var result = AddItemAsync(oneNoteNode, parentId);
-            return sectionConvertor.ConvertToLocal(result.Result, null);
+            return documentConverter.ConvertToLocal(result.Result, null);
         }
 
         public override List<Document> GetAllItems(string parentId = null)
         {
             var result = new List<Document>();
 
-            var sections = LoadAllItemsAsync(parentId).Result;
-            foreach (var item in sections)
+            var documents = LoadAllItemsAsync(parentId).Result;
+            foreach (var item in documents)
             {
-                var section = sectionConvertor.ConvertToLocal(item, null);
+                var section = documentConverter.ConvertToLocal(item, null);
                 result.Add(section);
             }
             return result;
@@ -43,7 +43,7 @@ namespace OneNote.Sample.Api
         public override Document GetItem(string sectionId)
         {
             var item = LoadItemAsync(sectionId).Result;
-            var section = sectionConvertor.ConvertToLocal(item, null);
+            var section = documentConverter.ConvertToLocal(item, null);
             return section;
         }
 

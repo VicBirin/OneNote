@@ -1,16 +1,16 @@
-﻿using HtmlAgilityPack;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
-using System.Linq;
 using System.Text;
 
 namespace OneNote.Sample.Api
 {
     public class OutlineElement : CompositeElement<IOutlineChildElement>, IOutlineElement, IPageChildElement, IElement, IOutlineChildElement
     {
+
         public OutlineElement(ElementType elementType) : base(elementType)
         {
+            IsComposite = true;
             Attributes = new Dictionary<string, string>();
             Styles = new Dictionary<string, string>();
         }
@@ -20,7 +20,11 @@ namespace OneNote.Sample.Api
             get
             {
                 Styles.TryGetValue("font-family", out string fontFamily);
-                if (string.IsNullOrEmpty(fontFamily)) return null;
+                if (string.IsNullOrEmpty(fontFamily))
+                {
+                    return null;
+                }
+
                 return new Font(fontFamily, FontSize);
             }
             set
@@ -34,7 +38,11 @@ namespace OneNote.Sample.Api
             get
             {
                 Styles.TryGetValue("font-size", out string fontSize);
-                if (string.IsNullOrEmpty(fontSize)) return 0;
+                if (string.IsNullOrEmpty(fontSize))
+                {
+                    return 0;
+                }
+
                 float.TryParse(fontSize.Replace("pt", ""), out float fontSizeValue);
                 return fontSizeValue;
             }
@@ -47,7 +55,11 @@ namespace OneNote.Sample.Api
             {
                 ColorConverter converter = new ColorConverter();
                 Styles.TryGetValue("color", out string colorString);
-                if (string.IsNullOrEmpty(colorString)) return Color.Empty;
+                if (string.IsNullOrEmpty(colorString))
+                {
+                    return Color.Empty;
+                }
+
                 return (Color)converter.ConvertFromString(colorString);
             }
             set
@@ -72,12 +84,13 @@ namespace OneNote.Sample.Api
             get
             {
                 Styles.TryGetValue("position", out string position);
-                return position; 
+                return position;
             }
             set { Styles["position"] = value; }
         }
 
-        public Margins Margins {
+        public Margins Margins
+        {
             get
             {
                 Styles.TryGetValue("margin-top", out string topStr);
@@ -90,12 +103,27 @@ namespace OneNote.Sample.Api
                 float left = 0;
                 float right = 0;
 
-                if (!string.IsNullOrEmpty(topStr)) float.TryParse(topStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out top);
-                if (!string.IsNullOrEmpty(bottomStr)) float.TryParse(bottomStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out bottom);
-                if (!string.IsNullOrEmpty(leftStr)) float.TryParse(leftStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out left);
-                if (!string.IsNullOrEmpty(rightStr)) float.TryParse(rightStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out right);
+                if (!string.IsNullOrEmpty(topStr))
+                {
+                    float.TryParse(topStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out top);
+                }
 
-                var margins = new Margins(left,right,top,bottom);
+                if (!string.IsNullOrEmpty(bottomStr))
+                {
+                    float.TryParse(bottomStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out bottom);
+                }
+
+                if (!string.IsNullOrEmpty(leftStr))
+                {
+                    float.TryParse(leftStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out left);
+                }
+
+                if (!string.IsNullOrEmpty(rightStr))
+                {
+                    float.TryParse(rightStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out right);
+                }
+
+                var margins = new Margins(left, right, top, bottom);
                 return margins;
             }
             set
@@ -113,9 +141,15 @@ namespace OneNote.Sample.Api
             {
                 Size size = Size.Empty;
                 if (Attributes.TryGetValue("width", out string width))
+                {
                     size.Width = int.Parse(width);
+                }
+
                 if (Attributes.TryGetValue("height", out string height))
+                {
                     size.Height = int.Parse(height);
+                }
+
                 return size;
             }
             set
@@ -125,42 +159,60 @@ namespace OneNote.Sample.Api
             }
         }
 
-        public string Text { get; set; }
-
         public string XPath { get; set; }
 
         public override string ToString()
         {
             var str = new StringBuilder($"Type: {ElementType}: ");
             if (!string.IsNullOrEmpty(Text))
+            {
                 str.Append($"'{Text.Trim('\r', '\n').Trim()}'; ");
+            }
 
             if (Font != null)
+            {
                 str.Append($"font: {Font.Name}, {FontSize}pt;");
+            }
 
             if (Color != Color.Empty)
+            {
                 str.Append($"color: {Color.Name}; ");
+            }
 
             if (Margins.Top > 0)
+            {
                 str.Append($"top {Margins.Top}pt; ");
+            }
 
             if (Margins.Bottom > 0)
+            {
                 str.Append($"top {Margins.Bottom}pt; ");
+            }
 
             if (Margins.Left > 0)
+            {
                 str.Append($"top {Margins.Left}pt; ");
+            }
 
             if (Margins.Right > 0)
+            {
                 str.Append($"top {Margins.Right}pt; ");
+            }
 
             if (!string.IsNullOrEmpty(Href))
+            {
                 str.Append($"href: {Href}; ");
+            }
 
             if (!string.IsNullOrEmpty(Position))
+            {
                 str.Append($"position: {Position}; ");
+            }
 
             if (Size != Size.Empty)
+            {
                 str.Append($"size: {Size.Width}x{Size.Height}; ");
+            }
 
             return str.ToString();
         }

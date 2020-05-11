@@ -8,11 +8,11 @@ namespace OneNote.Sample.Api
     /// <summary>
     /// Handles uploads to OneDrive
     /// </summary>
-    public class DriveFactory : OneNoteFactory<DriveItem>
+    public class GraphDriveFactory : OneNoteFactory<DriveItem>
     {
         private GraphServiceClient client;
 
-        public DriveFactory()
+        public GraphDriveFactory()
         {
             client = GraphClientFactory.GetGraphServiceClient();
         }

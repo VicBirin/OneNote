@@ -10,7 +10,7 @@ namespace OneNote.Sample.Api.Tests
         public void GetAllPages()
         {
             var sectionId = "0-3AE547978144BF51!131";
-            var factory = new PageFactory();
+            var factory = new GraphPageFactory();
             var list = factory.GetAllItems(sectionId);
 
             Assert.IsNotNull(list);
@@ -22,7 +22,7 @@ namespace OneNote.Sample.Api.Tests
         {
             var id = "0-d17714e498b540ae8bc5656b55049fc3!145-3AE547978144BF51!147";
 
-            var factory = new PageFactory();
+            var factory = new GraphPageFactory();
             var page = factory.GetItem(id);
 
             Assert.IsNotNull(page);
@@ -45,9 +45,9 @@ namespace OneNote.Sample.Api.Tests
 
             var pageInst = new Page(ElementType.Page);
             pageInst.Title = "Microsoft Graph API example";
-            pageInst.Source.LoadHtml(contentString);
+            //pageInst.Source.LoadHtml(contentString);
 
-            var factory = new PageFactory();
+            var factory = new GraphPageFactory();
             var page = factory.AddItem(pageInst, sectionId);
 
             Assert.IsNotNull(page.Id);

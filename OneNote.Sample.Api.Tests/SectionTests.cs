@@ -10,7 +10,7 @@ namespace OneNote.Sample.Api.Tests
         public void GetAllSections()
         {
             var notebookId = "0-3AE547978144BF51!117";
-            var factory = new SectionFactory();
+            var factory = new GraphDocumentFactory();
             var list = factory.GetAllItems(notebookId);
 
             Assert.IsNotNull(list);
@@ -22,7 +22,7 @@ namespace OneNote.Sample.Api.Tests
         {
             var id = "0-3AE547978144BF51!131";
 
-            var factory = new SectionFactory();
+            var factory = new GraphDocumentFactory();
             var section = factory.GetItem(id);
 
             Assert.IsNotNull(section);
@@ -39,7 +39,7 @@ namespace OneNote.Sample.Api.Tests
                 DisplayName = "New Notebook Section",
             };
 
-            var factory = new SectionFactory();
+            var factory = new GraphDocumentFactory();
             var notebook = factory.AddItem(sectionInst, notebookId);
 
             Assert.IsNotNull(notebook.Id);

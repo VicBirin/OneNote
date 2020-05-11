@@ -28,9 +28,10 @@ namespace OneNote.Sample.Api.Convertors
             dest.CreatedTime = src.CreatedDateTime;
 
             var content = ReadPageContent(src.Content);
-            dest.Source.LoadHtml(content);
+            HtmlDocument doc = new HtmlDocument();
+            doc.LoadHtml(content);
 
-            dest[0] = (IPageChildElement)ReadDocumentBody(null, dest.Source.DocumentNode.SelectSingleNode("//body"));
+            dest[0] = ParseHtmlDocument(null, doc.DocumentNode);
 
             return dest;
         }
@@ -47,7 +48,9 @@ namespace OneNote.Sample.Api.Convertors
                 Id = src.Id,
                 Title = src.Title,
                 UserTags = src.UserTags,
-                Content = WritePageContent(src.Source),
+
+                /// Todo: implement logic that writes page as html
+                //Content = WritePageContent(src.Source),
             };
 
             return dest;
@@ -74,32 +77,30 @@ namespace OneNote.Sample.Api.Convertors
             return stream;
         }
 
-        private Element ReadDocumentBody(Element parent, HtmlNode node)
+        private IPageChildElement ParseHtmlDocument(CompositeElement<IOutlineChildElement> parent, HtmlNode node)
         {
             if (node == null)
             {
                 return null;
             }
 
-            var elm = ParseElement(node);
-            
-            if (parent != null)
+            var elm = ParseElement(node, parent);
+
+            //if (node.NextSibling != null) elm.NextSibling = ParseElement(node.NextSibling);
+            //if(node.PreviousSibling != null) elm.PreviousSibling = ParseElement(node.PreviousSibling);
+
+            if (elm.IsComposite)
             {
-                elm.ParentElement = (ICompositeElement)parent;
-                ((OutlineElement)parent).AddChildElement((IOutlineChildElement)elm);
+                foreach (HtmlNode n in node.ChildNodes)
+                {
+                    ParseHtmlDocument(elm as CompositeElement<IOutlineChildElement>, n);
+                }
             }
 
-            if (node.NextSibling != null) elm.NextSibling = ParseElement(node.NextSibling);
-            if(node.PreviousSibling != null) elm.PreviousSibling = ParseElement(node.PreviousSibling);
-
-            foreach (HtmlNode n in node.ChildNodes)
-            {
-                ReadDocumentBody(elm, n);
-            }
-            return elm;
+            return elm as IPageChildElement;
         }
 
-        private Element ParseElement(HtmlNode node)
+        private Element ParseElement(HtmlNode node, CompositeElement<IOutlineChildElement> parent)
         {
             var elm = CreateElement(node);
             if (node.Attributes != null)
@@ -121,6 +122,18 @@ namespace OneNote.Sample.Api.Convertors
                     }
                 }
             }
+
+            if(elm.ElementType == ElementType.Text)
+            {
+                elm.Text = node.InnerText;
+            }
+
+            if (parent != null)
+            {
+                elm.ParentElement = parent;
+                parent.AddChildElement(elm as IOutlineChildElement);
+            }
+
             return elm;
         }
 
@@ -129,9 +142,6 @@ namespace OneNote.Sample.Api.Convertors
             Element elm = null;
             switch (node.Name)
             {
-                case "body":
-                    elm = new OutlineElement(ElementType.Body);
-                    break;
                 case "div":
                     elm = new OutlineElement(ElementType.Block);
                     break;

@@ -8,12 +8,12 @@ namespace OneNote.Sample.Api
     /// <summary>
     /// Handles Notebook CRUD operations
     /// </summary>
-    public class NotebookFactory : OneNoteFactory<Notebook>
+    public class GraphNotebookFactory : OneNoteFactory<Notebook>
     {
         private GraphServiceClient client;
         private GraphNotebookConverter notebookConvertor;
 
-        public NotebookFactory()
+        public GraphNotebookFactory()
         {
             client = GraphClientFactory.GetGraphServiceClient();
             notebookConvertor = new GraphNotebookConverter();

@@ -5,7 +5,6 @@
         Document,
         Page,
         Title,
-        Body,
         Block,
         Image,
         Url,

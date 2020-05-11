@@ -76,11 +76,26 @@ namespace OneNote.Sample.App
         {
             foreach (var element in elements)
             {
-                Console.WriteLine(element);
-
-                if (element is ICompositeElement && ((ICompositeElement)element).GetChildElements<Element>().Count > 0)
+                //print only implemented elements
+                if (element.ElementType != ElementType.Element)
                 {
-                    PrintChildElements(((ICompositeElement)element).GetChildElements<Element>());
+                    if (element is OutlineElement)
+                    {
+                        Console.WriteLine(element as OutlineElement);
+                    }
+                    else if (element is OutlineElement)
+                    {
+                        Console.WriteLine(element as ImageElement);
+                    }
+                    else
+                    {
+                        Console.WriteLine(element);
+                    }
+                }
+
+                if (element.IsComposite)
+                {
+                    PrintChildElements(((OutlineElement)element).GetChildElements<Element>());
                 }
             }
         }
@@ -96,7 +111,7 @@ namespace OneNote.Sample.App
 
             string title = "Microsoft Graph API example";
 
-            var pageFactory = new PageFactory();
+            var pageFactory = new GraphPageFactory();
             var allPages = pageFactory.GetAllItems(section.Id);
             var page = allPages.FirstOrDefault(p => p.Title.Equals(title));
             if (page != null)
@@ -143,7 +158,7 @@ namespace OneNote.Sample.App
         private static Document OpenOrCreateSection(Notebook notebook)
         {
             Console.WriteLine("Loading notebook sections ...");
-            var sectionFactory = new SectionFactory();
+            var sectionFactory = new GraphDocumentFactory();
             List<Document> sections = sectionFactory.GetAllItems();
             var section = sections.FirstOrDefault(s => s.DisplayName.Equals("Sample API Section"));
             if (section == null)
@@ -163,7 +178,7 @@ namespace OneNote.Sample.App
         {
             // get notebooks
             Console.WriteLine("loading notebooks ...");
-            var notebookFactory = new NotebookFactory();
+            var notebookFactory = new GraphNotebookFactory();
             List<Notebook> notebooks = notebookFactory.GetAllItems();
             var notebook = notebooks.FirstOrDefault(n => n.DisplayName == "Sample Notebook");
 

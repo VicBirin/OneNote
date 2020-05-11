@@ -11,7 +11,6 @@ namespace OneNote.Sample.Api
         public Page(ElementType elementType) : base(elementType)
         {
             UserTags = new List<string>();
-            Source = new HtmlAgilityPack.HtmlDocument();
         }
 
         public string Id { get; internal set; }
@@ -22,7 +21,5 @@ namespace OneNote.Sample.Api
         public IEnumerable<string> UserTags { get; set; }
         public DateTimeOffset? CreatedTime { get; internal set; }
         public Document Document { get; internal set; }
-
-        public HtmlAgilityPack.HtmlDocument Source { get; private set; }
     }
 }
