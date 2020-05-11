@@ -11,12 +11,12 @@ namespace OneNote.Sample.Api
     public class NotebookFactory : OneNoteFactory<Notebook>
     {
         private GraphServiceClient client;
-        private NotebookConvertor notebookConvertor;
+        private GraphNotebookConverter notebookConvertor;
 
         public NotebookFactory()
         {
             client = GraphClientFactory.GetGraphServiceClient();
-            notebookConvertor = new NotebookConvertor();
+            notebookConvertor = new GraphNotebookConverter();
         }
 
         /// <summary>

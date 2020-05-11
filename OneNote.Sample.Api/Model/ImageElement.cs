@@ -4,11 +4,11 @@ using System.Text;
 
 namespace OneNote.Sample.Api
 {
-    public class ImageElement : Element, IElement, IPageChildElement, IOutlineElementChild
+    public class ImageElement : Element, IElement, IPageChildElement, IOutlineChildElement
     {
-        public ImageElement(ElementType elementType)
+        public ImageElement()
         {
-            ElementType = elementType;
+            ElementType = ElementType.Image;
             Attributes = new Dictionary<string, string>();
             Styles = new Dictionary<string, string>();
         }

@@ -11,7 +11,7 @@ namespace OneNote.Sample.Api
         public Page(ElementType elementType) : base(elementType)
         {
             UserTags = new List<string>();
-            Document = new HtmlAgilityPack.HtmlDocument();
+            Source = new HtmlAgilityPack.HtmlDocument();
         }
 
         public string Id { get; internal set; }
@@ -21,10 +21,8 @@ namespace OneNote.Sample.Api
         public DateTimeOffset? LastModifiedDateTime { get; internal set; }
         public IEnumerable<string> UserTags { get; set; }
         public DateTimeOffset? CreatedTime { get; internal set; }
+        public Document Document { get; internal set; }
 
-        //public Notebook ParentNotebook { get; internal set; }
-        //public Section ParentSection { get; internal set; }
-
-        public HtmlAgilityPack.HtmlDocument Document { get; private set; }
+        public HtmlAgilityPack.HtmlDocument Source { get; private set; }
     }
 }

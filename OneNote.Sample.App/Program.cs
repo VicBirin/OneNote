@@ -34,7 +34,7 @@ namespace OneNote.Sample.App
                 Console.ResetColor();
 
                 Notebook notebook = OpenOrCreateNotebook();
-                Section section = OpenOrCreateSection(notebook);
+                Document section = OpenOrCreateSection(notebook);
 
                 var page = OpenOrCreatePage(section);
 
@@ -90,7 +90,7 @@ namespace OneNote.Sample.App
         /// </summary>
         /// <param name="section"></param>
         /// <returns></returns>
-        private static Page OpenOrCreatePage(Section section)
+        private static Page OpenOrCreatePage(Document section)
         {
             Console.WriteLine("Loading pages ...");
 
@@ -140,15 +140,15 @@ namespace OneNote.Sample.App
         /// </summary>
         /// <param name="notebook"></param>
         /// <returns></returns>
-        private static Section OpenOrCreateSection(Notebook notebook)
+        private static Document OpenOrCreateSection(Notebook notebook)
         {
             Console.WriteLine("Loading notebook sections ...");
             var sectionFactory = new SectionFactory();
-            List<Section> sections = sectionFactory.GetAllItems();
+            List<Document> sections = sectionFactory.GetAllItems();
             var section = sections.FirstOrDefault(s => s.DisplayName.Equals("Sample API Section"));
             if (section == null)
             {
-                section = sectionFactory.AddItem(new Section { DisplayName = "Sample API Section" }, notebook.Id);
+                section = sectionFactory.AddItem(new Document { DisplayName = "Sample API Section" }, notebook.Id);
                 Console.WriteLine($"Created notebook section: {section.DisplayName}");
             }
 

@@ -9,27 +9,27 @@ namespace OneNote.Sample.Api
     /// <summary>
     /// Handles OneNote sections CRUD operations
     /// </summary>
-    public class SectionFactory : OneNoteFactory<Section>
+    public class SectionFactory : OneNoteFactory<Document>
     {
         private GraphServiceClient client;
-        private SectionConvertor sectionConvertor;
+        private GraphDocumentConverter sectionConvertor;
 
         public SectionFactory()
         {
             client = GraphClientFactory.GetGraphServiceClient();
-            sectionConvertor = new SectionConvertor();
+            sectionConvertor = new GraphDocumentConverter();
         }
 
-        public override Section AddItem(Section item, string parentId)
+        public override Document AddItem(Document item, string parentId)
         {
             var oneNoteNode = sectionConvertor.ConvertToOneNote(item);
             var result = AddItemAsync(oneNoteNode, parentId);
             return sectionConvertor.ConvertToLocal(result.Result, null);
         }
 
-        public override List<Section> GetAllItems(string parentId = null)
+        public override List<Document> GetAllItems(string parentId = null)
         {
-            var result = new List<Section>();
+            var result = new List<Document>();
 
             var sections = LoadAllItemsAsync(parentId).Result;
             foreach (var item in sections)
@@ -40,7 +40,7 @@ namespace OneNote.Sample.Api
             return result;
         }
 
-        public override Section GetItem(string sectionId)
+        public override Document GetItem(string sectionId)
         {
             var item = LoadItemAsync(sectionId).Result;
             var section = sectionConvertor.ConvertToLocal(item, null);

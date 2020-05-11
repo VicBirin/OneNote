@@ -45,7 +45,7 @@ namespace OneNote.Sample.Api.Tests
 
             var pageInst = new Page(ElementType.Page);
             pageInst.Title = "Microsoft Graph API example";
-            pageInst.Document.LoadHtml(contentString);
+            pageInst.Source.LoadHtml(contentString);
 
             var factory = new PageFactory();
             var page = factory.AddItem(pageInst, sectionId);

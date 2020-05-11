@@ -18,12 +18,12 @@ namespace OneNote.Sample.Api
     public class PageFactory : OneNoteFactory<Page>
     {
         private GraphServiceClient client;
-        private PageConvertor pageConvertor;
+        private GraphPageConverter pageConvertor;
 
         public PageFactory()
         {
             client = GraphClientFactory.GetGraphServiceClient();
-            pageConvertor = new PageConvertor();
+            pageConvertor = new GraphPageConverter();
         }
 
         public override Page AddItem(Page item, string parentId = null)
@@ -70,11 +70,11 @@ namespace OneNote.Sample.Api
         {
             var content = new MultipartFormDataContent("MyPartBoundary198374");
 
-            var stringContent = new StringContent(item.Document.ParsedText, Encoding.UTF8, "text/html");
+            var stringContent = new StringContent(item.Source.ParsedText, Encoding.UTF8, "text/html");
             content.Add(stringContent, "Presentation");
 
             var stream = new MemoryStream();
-            item.Document.Save(stream, Encoding.UTF8);
+            item.Source.Save(stream, Encoding.UTF8);
             stream.Position = 0;
             var bytesArr = new byte[stream.Length];
             stream.Read(bytesArr, 0, bytesArr.Length);

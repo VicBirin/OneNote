@@ -2,6 +2,7 @@
 {
     public enum ElementType
     {
+        Document,
         Page,
         Title,
         Body,

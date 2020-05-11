@@ -7,7 +7,7 @@ using System.Text;
 
 namespace OneNote.Sample.Api
 {
-    public class OutlineElement : CompositeElement<IOutlineElementChild>, IOutlineElement, IPageChildElement, IElement, IOutlineElementChild
+    public class OutlineElement : CompositeElement<IOutlineChildElement>, IOutlineElement, IPageChildElement, IElement, IOutlineChildElement
     {
         public OutlineElement(ElementType elementType) : base(elementType)
         {
@@ -123,18 +123,6 @@ namespace OneNote.Sample.Api
                 Attributes["width"] = value.Width.ToString();
                 Attributes["height"] = value.Height.ToString();
             }
-        }
-
-        public new void LoadElement(HtmlNode node)
-        {
-            base.LoadElement(node);
-
-            if (node.NodeType == HtmlNodeType.Text)
-            {
-                Text = ((HtmlTextNode)node).Text;
-            }
-
-            XPath = node.XPath;
         }
 
         public string Text { get; set; }

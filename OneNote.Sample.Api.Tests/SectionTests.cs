@@ -34,7 +34,7 @@ namespace OneNote.Sample.Api.Tests
         {
             var notebookId = "0-3AE547978144BF51!117";
 
-            var sectionInst = new Section
+            var sectionInst = new Document
             {
                 DisplayName = "New Notebook Section",
             };

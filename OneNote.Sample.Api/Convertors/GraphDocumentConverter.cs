@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace OneNote.Sample.Api.Convertors
 {
-    public class SectionConvertor
+    public class GraphDocumentConverter : IDocumentConverter<Microsoft.Graph.OnenoteSection>
     {
-        public Section ConvertToLocal(Microsoft.Graph.OnenoteSection src, Notebook parentNotebook)
+        public Document ConvertToLocal(Microsoft.Graph.OnenoteSection src, Notebook parentNotebook)
         {
-            var dest = new Section();
+            var dest = new Document();
             if (src == null) return dest;
 
-            var pageConvertor = new PageConvertor();
+            var pageConvertor = new GraphPageConverter();
 
             dest.Id = src.Id;
             dest.DisplayName = src.DisplayName;
@@ -21,12 +21,12 @@ namespace OneNote.Sample.Api.Convertors
             return dest;
         }
 
-        public Microsoft.Graph.OnenoteSection ConvertToOneNote(Section src)
+        public Microsoft.Graph.OnenoteSection ConvertToOneNote(Document src)
         {
             var dest = new Microsoft.Graph.OnenoteSection();
             if (src == null) return dest;
 
-            var pageConvertor = new PageConvertor();
+            var pageConvertor = new GraphPageConverter();
 
             dest.Id = src.Id;
             dest.DisplayName = src.DisplayName;

@@ -6,7 +6,7 @@ namespace OneNote.Sample.Api
     /// <summary>
     /// OneNote notebook model
     /// </summary>
-    public class Notebook : INotebookElement
+    public class Notebook : INotebookChildElement
     {
         public string Id { get; internal set; }
         public string DisplayName { get; set; }
@@ -17,11 +17,11 @@ namespace OneNote.Sample.Api
         public string LastModifiedBy { get; internal set; }
         public DateTimeOffset? LastModified { get; internal set; }
         public string Link { get; internal set; }
-        public List<Section> Sections { get; internal set; }
+        public List<Document> Sections { get; internal set; }
 
         public Notebook()
         {
-            Sections = new List<Section>();
+            Sections = new List<Document>();
         }
     }
 }

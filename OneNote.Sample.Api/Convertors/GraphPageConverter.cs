@@ -5,11 +5,15 @@ using System.Text;
 
 namespace OneNote.Sample.Api.Convertors
 {
-    public class PageConvertor
+    public class GraphPageConverter : IPageConvertor<Microsoft.Graph.OnenotePage>
     {
-        public Page ConvertToLocal(Microsoft.Graph.OnenotePage src, Notebook parentNotebook, Section parentSection)
+        public Page ConvertToLocal(Microsoft.Graph.OnenotePage src, Notebook parentNotebook, Document parentDocument)
         {
-            var dest = new Page(ElementType.Page);
+            var dest = new Page(ElementType.Page)
+            {
+                Document = parentDocument
+            };
+
             if (src == null)
             {
                 return dest;
@@ -22,12 +26,11 @@ namespace OneNote.Sample.Api.Convertors
             dest.LastModifiedDateTime = src.LastModifiedDateTime;
             dest.UserTags = src.UserTags;
             dest.CreatedTime = src.CreatedDateTime;
-            dest.ElementType = ElementType.Page;
 
             var content = ReadPageContent(src.Content);
-            dest.Document.LoadHtml(content);
+            dest.Source.LoadHtml(content);
 
-            dest[0] = (IPageChildElement)ReadDocumentBody(null, dest.Document.DocumentNode.SelectSingleNode("//body"));
+            dest[0] = (IPageChildElement)ReadDocumentBody(null, dest.Source.DocumentNode.SelectSingleNode("//body"));
 
             return dest;
         }
@@ -44,7 +47,7 @@ namespace OneNote.Sample.Api.Convertors
                 Id = src.Id,
                 Title = src.Title,
                 UserTags = src.UserTags,
-                Content = WritePageContent(src.Document),
+                Content = WritePageContent(src.Source),
             };
 
             return dest;
@@ -83,7 +86,7 @@ namespace OneNote.Sample.Api.Convertors
             if (parent != null)
             {
                 elm.ParentElement = (ICompositeElement)parent;
-                ((OutlineElement)parent).AddChildElement((IOutlineElementChild)elm);
+                ((OutlineElement)parent).AddChildElement((IOutlineChildElement)elm);
             }
 
             if (node.NextSibling != null) elm.NextSibling = ParseElement(node.NextSibling);
@@ -99,7 +102,25 @@ namespace OneNote.Sample.Api.Convertors
         private Element ParseElement(HtmlNode node)
         {
             var elm = CreateElement(node);
-            elm.LoadElement(node);
+            if (node.Attributes != null)
+            {
+                foreach (var attr in node.Attributes)
+                {
+                    if (attr.Name == "style" && !string.IsNullOrEmpty(attr.Value))
+                    {
+                        var styles = attr.Value.Split(';');
+                        foreach (var style in styles)
+                        {
+                            var pair = style.Split(':');
+                            elm.Styles.Add(pair.First(), pair.Last());
+                        }
+                    }
+                    else
+                    {
+                        elm.Attributes.Add(attr.Name, attr.Value);
+                    }
+                }
+            }
             return elm;
         }
 
@@ -115,7 +136,7 @@ namespace OneNote.Sample.Api.Convertors
                     elm = new OutlineElement(ElementType.Block);
                     break;
                 case "img":
-                    elm = new ImageElement(ElementType.Image);
+                    elm = new ImageElement();
                     break;
                 case "a":
                     elm = new OutlineElement(ElementType.Url);

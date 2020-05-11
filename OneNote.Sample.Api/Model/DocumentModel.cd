@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="OneNote.Sample.Api.Notebook">
-    <Position X="9.5" Y="2.5" Width="1.75" />
+    <Position X="9.5" Y="2.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAACEQQAAAAAAAAAAAAAAAECAAAAAAQAAEAAQAAAAAE=</HashCode>
       <FileName>Model\Notebook.cs</FileName>
@@ -11,7 +11,7 @@
   <Class Name="OneNote.Sample.Api.Element">
     <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgBAAAAAAAAAAAIAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAgBAAAAAAAAAAAIAAAAAAQAAgAAAAABAAAAAAAAAA=</HashCode>
       <FileName>Model\Element.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -25,24 +25,23 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="OneNote.Sample.Api.Page">
-    <Position X="5.25" Y="4.5" Width="2" />
+    <Position X="5.75" Y="7.5" Width="2" />
+    <InheritanceLine Type="OneNote.Sample.Api.CompositeElement&lt;T&gt;" FixedFromPoint="true">
+      <Path>
+        <Point X="4.5" Y="6.625" />
+        <Point X="6.75" Y="6.625" />
+        <Point X="6.75" Y="7.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAECAAAAAAQAAEAAIAAAAAAAAAAAAAADAAAAAAAAAAE=</HashCode>
+      <HashCode>AAECAAAAAgQAAEAAIAAAAAAAAAAAAAADAAAAAAAAAAE=</HashCode>
       <FileName>Model\Page.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="OneNote.Sample.Api.Section">
-    <Position X="9.5" Y="6.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAACEQAAAAAAAAAgAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Model\Section.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="OneNote.Sample.Api.OutlineElement">
     <Position X="2.5" Y="8.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAABAgAAkAAAAAgAQAAAAAABABAAAiAASAQA=</HashCode>
+      <HashCode>AAAAAAgAAABAgAAkAAAAAgAAAAAAAABAAAAAiAACAAA=</HashCode>
       <FileName>Model\OutlineElement.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -50,8 +49,16 @@
   <Class Name="OneNote.Sample.Api.ImageElement">
     <Position X="0.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABAIAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAgAAEAAAAAAAAAAAAAAAAAAIAAAAAAAA=</HashCode>
       <FileName>Model\ImageElement.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OneNote.Sample.Api.Document">
+    <Position X="5.75" Y="3.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACEQAAAAAAAAAgAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Document.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -76,7 +83,7 @@
       <FileName>Interfaces\IOutlineElement.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="OneNote.Sample.Api.IOutlineElementChild">
+  <Interface Name="OneNote.Sample.Api.IOutlineChildElement">
     <Position X="2.75" Y="2.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
@@ -90,8 +97,8 @@
       <FileName>Interfaces\IPageChildElement.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="OneNote.Sample.Api.INotebookElement">
-    <Position X="9.5" Y="0.5" Width="1.75" />
+  <Interface Name="OneNote.Sample.Api.INotebookChildElement">
+    <Position X="9.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\INotebookChildElement.cs</FileName>
@@ -100,7 +107,7 @@
   <Enum Name="OneNote.Sample.Api.ElementType">
     <Position X="12" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAEAAAAAABQAEAAAAghAAAAAAAEABAACgAACAAAAQA=</HashCode>
+      <HashCode>ABAEAAAAAABQAEAAAAghAAAAAAAEABACCgAACAAAAQA=</HashCode>
       <FileName>Model\ElementType.cs</FileName>
     </TypeIdentifier>
   </Enum>

@@ -5,7 +5,7 @@ namespace OneNote.Sample.Api
     /// <summary>
     /// OneNote Section model
     /// </summary>
-    public class Section : INotebookElement
+    public class Document : CompositeElement<Page>, INotebookChildElement
     {
         public string Id { get; internal set; }
         public string DisplayName { get; set; }
@@ -13,7 +13,7 @@ namespace OneNote.Sample.Api
         public Notebook ParentNotebook { get; set; }
         public List<Page> Pages { get; internal set; }
 
-        public Section()
+        public Document() : base(ElementType.Document)
         {
             Pages = new List<Page>();
         }
