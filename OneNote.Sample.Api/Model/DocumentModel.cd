@@ -11,7 +11,7 @@
   <Class Name="OneNote.Sample.Api.Element">
     <Position X="0.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgBAAAAAAAAAAAIAAAAAAQAAiAAAAABAAAAAAAAAA=</HashCode>
+      <HashCode>AAAgBAAAAAAAAAAEIAAAAAAQAAiAAAAABAAACAAAAAA=</HashCode>
       <FileName>Model\Element.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -41,7 +41,7 @@
   <Class Name="OneNote.Sample.Api.OutlineElement">
     <Position X="2.5" Y="8.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAgAAABAgAAkAAAAAgAAAACAAABAAAAAiAACAAA=</HashCode>
+      <HashCode>AAAAAAgAAABAgAAkAAAAAgAAAAAAAABAAAAAgAACAAA=</HashCode>
       <FileName>Model\OutlineElement.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -102,6 +102,34 @@
     <TypeIdentifier>
       <HashCode>AAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Interfaces\INotebookChildElement.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OneNote.Sample.Api.IOneNoteConverter&lt;T1, T2&gt;">
+    <Position X="11.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IOneNoteConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OneNote.Sample.Api.IPageConverter&lt;T&gt;">
+    <Position X="14.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Interfaces\IPageConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OneNote.Sample.Api.INotebookConverter&lt;T&gt;">
+    <Position X="11.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Interfaces\INotebookConverter.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="OneNote.Sample.Api.IDocumentConverter&lt;T&gt;">
+    <Position X="9.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Interfaces\IDocumentConverter.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="OneNote.Sample.Api.ElementType">
