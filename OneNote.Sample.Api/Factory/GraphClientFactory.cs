@@ -15,7 +15,7 @@ namespace OneNote.Sample.Api
     /// instance of the GraphServiceClient with the client 
     /// data to be used when authenticating requests to the Graph API
     /// </summary> 
-    internal static class GraphClientFactory
+    public static class GraphClientFactory
     {
         private static readonly string clientId;
         private static readonly string instance;

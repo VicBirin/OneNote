@@ -4,7 +4,7 @@
     using System.IO;
     using System.Security.Cryptography;
 
-    internal static class TokenCacheHelper
+    public static class TokenCacheHelper
     {
         /// <summary>
         /// Path to the token cache

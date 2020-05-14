@@ -1,165 +1,24 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
+﻿using System.Drawing;
 using System.Text;
 
 namespace OneNote.Sample.Api
 {
     public class OutlineElement : CompositeElement<IOutlineChildElement>, IOutlineElement, IPageChildElement, IElement, IOutlineChildElement
     {
-
         public OutlineElement(ElementType elementType) : base(elementType)
         {
             IsComposite = true;
-            Attributes = new Dictionary<string, string>();
-            Styles = new Dictionary<string, string>();
         }
 
-        public Font Font
-        {
-            get
-            {
-                Styles.TryGetValue("font-family", out string fontFamily);
-                if (string.IsNullOrEmpty(fontFamily))
-                {
-                    return null;
-                }
+        public string Text { get; set; }
 
-                return new Font(fontFamily, FontSize);
-            }
-            set
-            {
-                Styles["font-family"] = value.Name;
-            }
-        }
+        public TextStyle TextStyle { get; set; }
 
-        public float FontSize
-        {
-            get
-            {
-                Styles.TryGetValue("font-size", out string fontSize);
-                if (string.IsNullOrEmpty(fontSize))
-                {
-                    return 0;
-                }
+        public string Position { get; set; }
 
-                float.TryParse(fontSize.Replace("pt", ""), out float fontSizeValue);
-                return fontSizeValue;
-            }
-            set { Styles["font-size"] = value + "pt"; }
-        }
+        public Margins Margins { get; set; }
 
-        public Color Color
-        {
-            get
-            {
-                ColorConverter converter = new ColorConverter();
-                Styles.TryGetValue("color", out string colorString);
-                if (string.IsNullOrEmpty(colorString))
-                {
-                    return Color.Empty;
-                }
-
-                return (Color)converter.ConvertFromString(colorString);
-            }
-            set
-            {
-                ColorConverter converter = new ColorConverter();
-                Styles["color"] = converter.ConvertToString(value);
-            }
-        }
-
-        public string Href
-        {
-            get
-            {
-                Attributes.TryGetValue("href", out string href);
-                return href;
-            }
-            set { Attributes["href"] = value; }
-        }
-
-        public string Position
-        {
-            get
-            {
-                Styles.TryGetValue("position", out string position);
-                return position;
-            }
-            set { Styles["position"] = value; }
-        }
-
-        public Margins Margins
-        {
-            get
-            {
-                Styles.TryGetValue("margin-top", out string topStr);
-                Styles.TryGetValue("margin-bottom", out string bottomStr);
-                Styles.TryGetValue("margin-left", out string leftStr);
-                Styles.TryGetValue("margin-right", out string rightStr);
-
-                float top = 0;
-                float bottom = 0;
-                float left = 0;
-                float right = 0;
-
-                if (!string.IsNullOrEmpty(topStr))
-                {
-                    float.TryParse(topStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out top);
-                }
-
-                if (!string.IsNullOrEmpty(bottomStr))
-                {
-                    float.TryParse(bottomStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out bottom);
-                }
-
-                if (!string.IsNullOrEmpty(leftStr))
-                {
-                    float.TryParse(leftStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out left);
-                }
-
-                if (!string.IsNullOrEmpty(rightStr))
-                {
-                    float.TryParse(rightStr.Replace("pt", ""), NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out right);
-                }
-
-                var margins = new Margins(left, right, top, bottom);
-                return margins;
-            }
-            set
-            {
-                Styles["margin-top"] = value.Top + "pt";
-                Styles["margin-bottom"] = value.Bottom + "pt";
-                Styles["margin-left"] = value.Left + "pt";
-                Styles["margin-right"] = value.Right + "pt";
-            }
-        }
-
-        public Size Size
-        {
-            get
-            {
-                Size size = Size.Empty;
-                if (Attributes.TryGetValue("width", out string width))
-                {
-                    size.Width = int.Parse(width);
-                }
-
-                if (Attributes.TryGetValue("height", out string height))
-                {
-                    size.Height = int.Parse(height);
-                }
-
-                return size;
-            }
-            set
-            {
-                Attributes["width"] = value.Width.ToString();
-                Attributes["height"] = value.Height.ToString();
-            }
-        }
-
-        public string XPath { get; set; }
+        public Size Size { get; set; }
 
         public override string ToString()
         {
@@ -169,14 +28,14 @@ namespace OneNote.Sample.Api
                 str.Append($"'{Text.Trim('\r', '\n').Trim()}'; ");
             }
 
-            if (Font != null)
+            if (TextStyle != null)
             {
-                str.Append($"font: {Font.Name}, {FontSize}pt;");
+                str.Append($"font: {TextStyle.FontName}, {TextStyle.FontSize}pt;");
             }
 
-            if (Color != Color.Empty)
+            if (TextStyle != null && TextStyle.FontColor != Color.Empty)
             {
-                str.Append($"color: {Color.Name}; ");
+                str.Append($"color: {TextStyle.FontColor.Name}; ");
             }
 
             if (Margins.Top > 0)
@@ -199,19 +58,14 @@ namespace OneNote.Sample.Api
                 str.Append($"top {Margins.Right}pt; ");
             }
 
-            if (!string.IsNullOrEmpty(Href))
+            if (TextStyle != null && !string.IsNullOrEmpty(TextStyle.Url))
             {
-                str.Append($"href: {Href}; ");
+                str.Append($"href: {TextStyle.Url}; ");
             }
 
             if (!string.IsNullOrEmpty(Position))
             {
                 str.Append($"position: {Position}; ");
-            }
-
-            if (Size != Size.Empty)
-            {
-                str.Append($"size: {Size.Width}x{Size.Height}; ");
             }
 
             return str.ToString();

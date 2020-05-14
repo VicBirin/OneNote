@@ -1,12 +1,14 @@
 ﻿using HtmlAgilityPack;
 using System.IO;
-using System.Linq;
 using System.Text;
 
 namespace OneNote.Sample.Api.Convertors
 {
     public class GraphPageConverter : IPageConverter<Microsoft.Graph.OnenotePage>
     {
+
+        GraphElementConverter elementConverter = new GraphElementConverter();
+
         public Page ConvertToLocal(Microsoft.Graph.OnenotePage src, Notebook parentNotebook, Document parentDocument)
         {
             var dest = new Page(ElementType.Page)
@@ -86,9 +88,6 @@ namespace OneNote.Sample.Api.Convertors
 
             var elm = ParseElement(node, parent);
 
-            //if (node.NextSibling != null) elm.NextSibling = ParseElement(node.NextSibling);
-            //if(node.PreviousSibling != null) elm.PreviousSibling = ParseElement(node.PreviousSibling);
-
             if (elm.IsComposite)
             {
                 foreach (HtmlNode n in node.ChildNodes)
@@ -102,79 +101,7 @@ namespace OneNote.Sample.Api.Convertors
 
         private Element ParseElement(HtmlNode node, CompositeElement<IOutlineChildElement> parent)
         {
-            var elm = CreateElement(node);
-            if (node.Attributes != null)
-            {
-                foreach (var attr in node.Attributes)
-                {
-                    if (attr.Name == "style" && !string.IsNullOrEmpty(attr.Value))
-                    {
-                        var styles = attr.Value.Split(';');
-                        foreach (var style in styles)
-                        {
-                            var pair = style.Split(':');
-                            elm.Styles.Add(pair.First(), pair.Last());
-                        }
-                    }
-                    else
-                    {
-                        elm.Attributes.Add(attr.Name, attr.Value);
-                    }
-                }
-            }
-
-            if(elm.ElementType == ElementType.Text)
-            {
-                elm.Text = node.InnerText;
-            }
-
-            if (parent != null)
-            {
-                elm.ParentElement = parent;
-                parent.AddChildElement(elm as IOutlineChildElement);
-            }
-
-            return elm;
-        }
-
-        private Element CreateElement(HtmlNode node)
-        {
-            Element elm = null;
-            switch (node.Name)
-            {
-                case "div":
-                    elm = new OutlineElement(ElementType.Block);
-                    break;
-                case "img":
-                    elm = new ImageElement();
-                    break;
-                case "a":
-                    elm = new OutlineElement(ElementType.Url);
-                    break;
-                case "h1":
-                    elm = new OutlineElement(ElementType.Heading1);
-                    break;
-                case "h2":
-                    elm = new OutlineElement(ElementType.Heading2);
-                    break;
-                case "h3":
-                    elm = new OutlineElement(ElementType.Heading3);
-                    break;
-                case "h4":
-                    elm = new OutlineElement(ElementType.Heading4);
-                    break;
-                case "#text":
-                    elm = new OutlineElement(ElementType.Text);
-                    break;
-                case "p":
-                    elm = new OutlineElement(ElementType.Paragraph);
-                    break;
-                default:
-                    elm = new OutlineElement(ElementType.Element);
-                    break;
-            }
-
-            return elm;
+            return elementConverter.ConvertToLocal(node, parent);
         }
     }
 }

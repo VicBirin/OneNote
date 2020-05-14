@@ -14,7 +14,7 @@ namespace OneNote.Sample.Api.Helpers
     /// </summary>
     /// A significantly enhanced version of this class will in the future be available from
     /// the GraphSDK team. It will support all the types of Client Application as defined by MSAL.
-    internal class MsalAuthenticationProvider : IAuthenticationProvider
+    public class MsalAuthenticationProvider : IAuthenticationProvider
     {
         private readonly IPublicClientApplication clientApplication;
         private readonly string[] scopes;

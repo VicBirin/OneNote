@@ -47,7 +47,7 @@ namespace OneNote.Sample.App
                 Console.WriteLine();
 
                 PrintChildElements(page.GetChildElements<Element>());
-
+                
                 Console.ReadKey();
             }
             catch (ArgumentNullException ex)

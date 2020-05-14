@@ -127,19 +127,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Convertors\GraphDocumentConverter.cs" />
+    <Compile Include="Convertors\GraphElementConverter.cs" />
     <Compile Include="Convertors\GraphNotebookConverter.cs" />
     <Compile Include="Convertors\GraphPageConverter.cs" />
     <Compile Include="Factory\GraphDocumentFactory.cs" />
     <Compile Include="Factory\GraphDriveFactory.cs" />
+    <Compile Include="Factory\GraphElementBuilderFactory.cs" />
     <Compile Include="Factory\GraphNotebookFactory.cs" />
     <Compile Include="Factory\GraphPageFactory.cs" />
+    <Compile Include="Factory\ImageElementBuilder.cs" />
+    <Compile Include="Factory\OutlineElementBuilder.cs" />
     <Compile Include="Interfaces\IDocumentConverter.cs" />
+    <Compile Include="Interfaces\IElementBuilder.cs" />
+    <Compile Include="Interfaces\IElementBuilderFactory.cs" />
+    <Compile Include="Interfaces\IGraphElementConverter.cs" />
+    <Compile Include="Interfaces\IImageElementBuilder.cs" />
     <Compile Include="Interfaces\INotebookConverter.cs" />
     <Compile Include="Interfaces\IOneNoteConverter.cs" />
     <Compile Include="Factory\GraphClientFactory.cs" />
     <Compile Include="Helpers\AuthHandler.cs" />
     <Compile Include="Helpers\MsalAuthenticationProvider.cs" />
     <Compile Include="Helpers\TokenCacheHelper.cs" />
+    <Compile Include="Interfaces\IOutlineElementBuilder.cs" />
     <Compile Include="Interfaces\IOutlineElementChild.cs" />
     <Compile Include="Interfaces\IPageConverter.cs" />
     <Compile Include="Model\CompositeElement.cs" />
@@ -157,6 +166,7 @@
     <Compile Include="Model\Notebook.cs" />
     <Compile Include="Model\OutlineElement.cs" />
     <Compile Include="Model\Page.cs" />
+    <Compile Include="Model\TextStyle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

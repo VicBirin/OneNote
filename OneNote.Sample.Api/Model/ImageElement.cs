@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.Text;
 
 namespace OneNote.Sample.Api
@@ -9,47 +9,20 @@ namespace OneNote.Sample.Api
         public ImageElement()
         {
             ElementType = ElementType.Image;
-            Attributes = new Dictionary<string, string>();
-            Styles = new Dictionary<string, string>();
+            Size = Size.Empty;
         }
 
-        public Size Size
-        {
-            get
-            {
-                Size size = Size.Empty;
-                if (Attributes.TryGetValue("width", out string width))
-                {
-                    size.Width = int.Parse(width);
-                }
+        public ImageFormat ImageFormat { get; set; }
 
-                if (Attributes.TryGetValue("height", out string height))
-                {
-                    size.Height = int.Parse(height);
-                }
+        public Size Size { get; set; }
 
-                return size;
-            }
-            set
-            {
-                Attributes["width"] = value.Width.ToString();
-                Attributes["height"] = value.Height.ToString();
-            }
-        }
+        public string Src { get; set; }
 
-        public string Src
-        {
-            get
-            {
-                Attributes.TryGetValue("src", out string src);
-                return src;
-            }
-            set { Attributes["src"] = value; }
-        }
+        public byte[] Body { get; set; }
 
         public override string ToString()
         {
-            var str = new StringBuilder($"Type: {ElementType}: ");
+            var str = new StringBuilder(base.ToString());
 
             if (Size != Size.Empty)
             {
@@ -59,6 +32,16 @@ namespace OneNote.Sample.Api
             if (!string.IsNullOrEmpty(Src))
             {
                 str.Append($"source: '{Src}'; ");
+            }
+
+            if (Body != null)
+            {
+                str.Append($"body: '{Body.Length}' bytes; ");
+            }
+
+            if (Size != Size.Empty)
+            {
+                str.Append($"size: {Size.Width}x{Size.Height}; ");
             }
 
             return str.ToString();
