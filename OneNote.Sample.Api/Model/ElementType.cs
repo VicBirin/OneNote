@@ -8,7 +8,8 @@
         Block,
         Image,
         Paragraph,
-        Text,
+        TextElement,
+        PlainText,
         File,
         Element,
     }

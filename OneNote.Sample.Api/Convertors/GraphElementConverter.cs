@@ -15,14 +15,13 @@ namespace OneNote.Sample.Api
         public Element ConvertToLocal(HtmlNode node, CompositeElement<IOutlineChildElement> parent)
         {
             var builder = creator.GetBuilder(node);
-            //if (!node.HasAttributes)
-            //{
-            //    return builder.GetElement();
-            //}
+            if (builder.GetElement().ElementType == ElementType.PlainText)
+            {
+                return null;
+            }
 
             Dictionary<string, string> properties = ReadNodeProperties(node);
-
-            if (builder.GetElement().ElementType == ElementType.Text)
+            if (builder.GetElement().ElementType == ElementType.TextElement)
             {
                properties.Add("Text", node.InnerText);
             }

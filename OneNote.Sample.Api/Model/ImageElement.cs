@@ -36,12 +36,7 @@ namespace OneNote.Sample.Api
 
             if (Body != null)
             {
-                str.Append($"body: '{Body.Length}' bytes; ");
-            }
-
-            if (Size != Size.Empty)
-            {
-                str.Append($"size: {Size.Width}x{Size.Height}; ");
+                str.Append($"body: {Body.Length} bytes; ");
             }
 
             return str.ToString();

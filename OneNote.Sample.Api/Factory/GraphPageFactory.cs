@@ -61,6 +61,7 @@ namespace OneNote.Sample.Api
         private async Task<OnenotePage> LoadItemAsync(string pageId)
         {
             var page = await client.Me.Onenote.Pages[pageId].Request().GetAsync();
+
             var content = await LoadPageContent(page);
             page.Content = content;
             return page;

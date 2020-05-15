@@ -87,6 +87,7 @@ namespace OneNote.Sample.Api.Convertors
             }
 
             var elm = ParseElement(node, parent);
+            if (elm == null) return null;
 
             if (elm.IsComposite)
             {

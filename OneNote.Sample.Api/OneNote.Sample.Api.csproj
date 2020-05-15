@@ -135,6 +135,7 @@
     <Compile Include="Factory\GraphElementBuilderFactory.cs" />
     <Compile Include="Factory\GraphNotebookFactory.cs" />
     <Compile Include="Factory\GraphPageFactory.cs" />
+    <Compile Include="Factory\GraphResourceFactory.cs" />
     <Compile Include="Factory\ImageElementBuilder.cs" />
     <Compile Include="Factory\OutlineElementBuilder.cs" />
     <Compile Include="Interfaces\IDocumentConverter.cs" />

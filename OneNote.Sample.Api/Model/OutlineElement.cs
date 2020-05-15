@@ -22,7 +22,7 @@ namespace OneNote.Sample.Api
 
         public override string ToString()
         {
-            var str = new StringBuilder($"Type: {ElementType}: ");
+            var str = new StringBuilder(base.ToString());
             if (!string.IsNullOrEmpty(Text))
             {
                 str.Append($"'{Text.Trim('\r', '\n').Trim()}'; ");

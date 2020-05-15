@@ -5,6 +5,5 @@
         void ReadSize();
         void ReadSource();
         void ReadBody();
-        void ReadImageFormat();
     }
 }

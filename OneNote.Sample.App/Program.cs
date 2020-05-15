@@ -83,7 +83,7 @@ namespace OneNote.Sample.App
                     {
                         Console.WriteLine(element as OutlineElement);
                     }
-                    else if (element is OutlineElement)
+                    else if (element is ImageElement)
                     {
                         Console.WriteLine(element as ImageElement);
                     }

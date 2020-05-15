@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace OneNote.Sample.Api
 {
@@ -16,6 +18,8 @@ namespace OneNote.Sample.Api
         public void BuildElement(Dictionary<string, string> properties)
         {
             this.properties = properties;
+            ReadSource();
+            ReadSize();
             ReadBody();
         }
 
@@ -36,12 +40,25 @@ namespace OneNote.Sample.Api
 
         public void ReadBody()
         {
-            // to add later
-        }
+            if (properties.ContainsKey("src"))
+            {
+                var src = properties["src"];
+                var client = new GraphResourceFactory();
+                var imageId = src.Split('/').GetValue(7).ToString();
 
-        public void ReadImageFormat()
-        {
-            // to add later
+                using (var stream = client.GetItem(imageId))
+                {
+                    var image = Image.FromStream(stream);
+                    element.ImageFormat = image.RawFormat;
+
+                    var bytesStream = new MemoryStream();
+                    image.Save(bytesStream, image.RawFormat);
+
+                    bytesStream.Position = 0;
+                    element.Body = new byte[bytesStream.Length];
+                    bytesStream.Read(element.Body, 0, (int)bytesStream.Length);
+                }
+            }
         }
 
         public void ReadSize()
@@ -52,9 +69,9 @@ namespace OneNote.Sample.Api
 
         public void ReadSource()
         {
-            if (properties.ContainsKey("Src"))
+            if (properties.ContainsKey("src"))
             {
-                element.Src = properties["Src"];
+                element.Src = properties["src"];
             }
         }
 

@@ -13,8 +13,9 @@ namespace OneNote.Sample.Api
                 case "h2":
                 case "h3":
                 case "h4":
+                    return new OutlineElementBuilder(ElementType.TextElement);
                 case "#text":
-                    return new OutlineElementBuilder(ElementType.Text);
+                    return new OutlineElementBuilder(ElementType.PlainText);
                 case "p":
                     return new OutlineElementBuilder(ElementType.Paragraph);
                 case "div":

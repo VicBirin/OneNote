@@ -21,7 +21,7 @@ namespace OneNote.Sample.Api
 
         public void ReadText()
         {
-            if (element.ElementType == ElementType.Text && properties.ContainsKey("Text"))
+            if (element.ElementType == ElementType.TextElement && properties.ContainsKey("Text"))
             {
                 element.Text = properties["Text"];
             }
@@ -41,7 +41,7 @@ namespace OneNote.Sample.Api
 
         public void ReadPosition()
         {
-            if (element.ElementType == ElementType.Text && properties.ContainsKey("position"))
+            if (element.ElementType == ElementType.TextElement && properties.ContainsKey("position"))
             {
                 element.Text = properties["position"];
             }
