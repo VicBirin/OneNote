@@ -11,31 +11,31 @@ namespace OneNote.Sample.Api.Convertors
 
         public Page ConvertToLocal(Microsoft.Graph.OnenotePage src, Notebook parentNotebook, Document parentDocument)
         {
-            var dest = new Page(ElementType.Page)
+            var page = new Page(ElementType.Page)
             {
                 Document = parentDocument
             };
 
             if (src == null)
             {
-                return dest;
+                return page;
             }
 
-            dest.Id = src.Id;
-            dest.Level = src.Level;
-            dest.Title = src.Title;
-            dest.Order = src.Order;
-            dest.LastModifiedDateTime = src.LastModifiedDateTime;
-            dest.UserTags = src.UserTags;
-            dest.CreatedTime = src.CreatedDateTime;
+            page.Id = src.Id;
+            page.Level = src.Level;
+            page.Title = src.Title;
+            page.Order = src.Order;
+            page.LastModifiedDateTime = src.LastModifiedDateTime;
+            page.UserTags = src.UserTags;
+            page.CreatedTime = src.CreatedDateTime;
 
             var content = ReadPageContent(src.Content);
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(content);
 
-            dest[0] = ParseHtmlDocument(null, doc.DocumentNode);
+            page[0] = ParseHtmlDocument(null, doc.DocumentNode);
 
-            return dest;
+            return page;
         }
 
         public Microsoft.Graph.OnenotePage ConvertToOneNote(Page src)
@@ -45,7 +45,7 @@ namespace OneNote.Sample.Api.Convertors
                 return new Microsoft.Graph.OnenotePage();
             }
 
-            var dest = new Microsoft.Graph.OnenotePage
+            var page = new Microsoft.Graph.OnenotePage
             {
                 Id = src.Id,
                 Title = src.Title,
@@ -55,7 +55,7 @@ namespace OneNote.Sample.Api.Convertors
                 //Content = WritePageContent(src.Source),
             };
 
-            return dest;
+            return page;
         }
 
         private string ReadPageContent(Stream stream)

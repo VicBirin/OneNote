@@ -103,16 +103,16 @@ namespace OneNote.Sample.App
         /// <summary>
         /// Creates OneNote page
         /// </summary>
-        /// <param name="section"></param>
+        /// <param name="document"></param>
         /// <returns></returns>
-        private static Page OpenOrCreatePage(Document section)
+        private static Page OpenOrCreatePage(Document document)
         {
             Console.WriteLine("Loading pages ...");
 
             string title = "Microsoft Graph API example";
 
             var pageFactory = new GraphPageFactory();
-            var allPages = pageFactory.GetAllItems(section.Id);
+            var allPages = pageFactory.GetAllItems(document.Id);
             var page = allPages.FirstOrDefault(p => p.Title.Equals(title));
             if (page != null)
             {

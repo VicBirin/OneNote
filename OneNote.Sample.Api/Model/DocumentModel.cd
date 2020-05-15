@@ -72,14 +72,6 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="OneNote.Sample.Api.GraphElementConverter">
-    <Position X="15.25" Y="7.5" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAQAABAAAAAAAIAAAA=</HashCode>
-      <FileName>Convertors\GraphElementConverter.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="OneNote.Sample.Api.Convertors.GraphDocumentConverter">
     <Position X="15.25" Y="10" Width="2.5" />
     <TypeIdentifier>
@@ -93,6 +85,14 @@
     <TypeIdentifier>
       <HashCode>AAAAAAIAAAAAAAAAAAAAggAAAAEAAABAAIAAAAIAAAA=</HashCode>
       <FileName>Convertors\GraphPageConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="OneNote.Sample.Api.GraphElementConverter">
+    <Position X="15.25" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAQAABAAAAAAAIAAAA=</HashCode>
+      <FileName>Convertors\GraphElementConverter.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

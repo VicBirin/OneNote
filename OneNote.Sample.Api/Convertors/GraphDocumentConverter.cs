@@ -7,18 +7,18 @@ namespace OneNote.Sample.Api.Convertors
     {
         public Document ConvertToLocal(Microsoft.Graph.OnenoteSection src, Notebook parentNotebook)
         {
-            var dest = new Document();
-            if (src == null) return dest;
+            var doc = new Document();
+            if (src == null) return doc;
 
             var pageConvertor = new GraphPageConverter();
 
-            dest.Id = src.Id;
-            dest.DisplayName = src.DisplayName;
-            dest.IsDefault = src.IsDefault;
-            dest.ParentNotebook = parentNotebook;
-            dest.Pages = src.Pages == null ? new List<Page>() : src.Pages.Select(p => pageConvertor.ConvertToLocal(p, parentNotebook, dest)).ToList();
+            doc.Id = src.Id;
+            doc.DisplayName = src.DisplayName;
+            doc.IsDefault = src.IsDefault;
+            doc.ParentNotebook = parentNotebook;
+            doc.Pages = src.Pages == null ? new List<Page>() : src.Pages.Select(p => pageConvertor.ConvertToLocal(p, parentNotebook, doc)).ToList();
 
-            return dest;
+            return doc;
         }
 
         public Microsoft.Graph.OnenoteSection ConvertToOneNote(Document src)
