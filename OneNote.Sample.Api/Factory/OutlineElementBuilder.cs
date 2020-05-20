@@ -39,14 +39,6 @@ namespace OneNote.Sample.Api
             element.Margins = margins;
         }
 
-        public void ReadPosition()
-        {
-            if (element.ElementType == ElementType.TextElement && properties.ContainsKey("position"))
-            {
-                element.Text = properties["position"];
-            }
-        }
-
         public void BuildElement(Dictionary<string, string> properties)
         {
             this.properties = properties;

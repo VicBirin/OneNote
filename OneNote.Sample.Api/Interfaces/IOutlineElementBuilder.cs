@@ -7,6 +7,5 @@ namespace OneNote.Sample.Api
         void ReadText();
         void ReadTextStyle();
         void ReadMargins();
-        void ReadPosition();
     }
 }

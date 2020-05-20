@@ -153,6 +153,7 @@
     <Compile Include="Interfaces\IOutlineElementChild.cs" />
     <Compile Include="Interfaces\IPageConverter.cs" />
     <Compile Include="Model\CompositeElement.cs" />
+    <Compile Include="Model\CompositeElementExtension.cs" />
     <Compile Include="Model\Document.cs" />
     <Compile Include="Model\Element.cs" />
     <Compile Include="Model\ElementType.cs" />

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Linq;
 
 namespace OneNote.Sample.Api.Convertors
@@ -8,7 +8,10 @@ namespace OneNote.Sample.Api.Convertors
         public Document ConvertToLocal(Microsoft.Graph.OnenoteSection src, Notebook parentNotebook)
         {
             var doc = new Document();
-            if (src == null) return doc;
+            if (src == null)
+            {
+                return doc;
+            }
 
             var pageConvertor = new GraphPageConverter();
 
@@ -16,7 +19,10 @@ namespace OneNote.Sample.Api.Convertors
             doc.DisplayName = src.DisplayName;
             doc.IsDefault = src.IsDefault;
             doc.ParentNotebook = parentNotebook;
-            doc.Pages = src.Pages == null ? new List<Page>() : src.Pages.Select(p => pageConvertor.ConvertToLocal(p, parentNotebook, doc)).ToList();
+            if (src.Pages != null)
+            {
+                Array.ForEach(src.Pages.Select(p => pageConvertor.ConvertToLocal(p, parentNotebook, doc)).ToArray(), doc.AddChildElement);
+            }
 
             return doc;
         }
@@ -24,7 +30,10 @@ namespace OneNote.Sample.Api.Convertors
         public Microsoft.Graph.OnenoteSection ConvertToOneNote(Document src)
         {
             var dest = new Microsoft.Graph.OnenoteSection();
-            if (src == null) return dest;
+            if (src == null)
+            {
+                return dest;
+            }
 
             var pageConvertor = new GraphPageConverter();
 
@@ -33,7 +42,7 @@ namespace OneNote.Sample.Api.Convertors
             dest.IsDefault = src.IsDefault;
 
             dest.Pages = new Microsoft.Graph.OnenoteSectionPagesCollectionPage();
-            foreach (var p in src.Pages)
+            foreach (var p in src)
             {
                 dest.Pages.Add(pageConvertor.ConvertToOneNote(p));
             }

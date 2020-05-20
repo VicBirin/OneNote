@@ -9,11 +9,7 @@ namespace OneNote.Sample.Api
     {
         List<T> items = new List<T>();
 
-        public T this[int index]
-        {
-            get { return items[index]; }
-            set { items.Insert(index, value); }
-        }
+        public T this[int i] => items.OfType<T>().ElementAtOrDefault(i);
 
         public void AddChildElement(T item)
         {
@@ -27,12 +23,12 @@ namespace OneNote.Sample.Api
 
         public List<E> GetChildElements<E>() where E : Element
         {
-            return items.Cast<E>().ToList();
+            return items.OfType<E>().ToList();
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            return items.GetEnumerator();
+            return items.OfType<T>().GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

@@ -33,7 +33,7 @@ namespace OneNote.Sample.Api.Convertors
             HtmlDocument doc = new HtmlDocument();
             doc.LoadHtml(content);
 
-            page[0] = ParseHtmlDocument(null, doc.DocumentNode);
+            page.AddChildElement(ParseHtmlDocument(null, doc.DocumentNode));
 
             return page;
         }

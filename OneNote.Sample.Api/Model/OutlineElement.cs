@@ -8,6 +8,7 @@ namespace OneNote.Sample.Api
         public OutlineElement(ElementType elementType) : base(elementType)
         {
             IsComposite = true;
+            Text = "";
         }
 
         public string Text { get; set; }

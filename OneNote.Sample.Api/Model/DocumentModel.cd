@@ -59,7 +59,7 @@
   <Class Name="OneNote.Sample.Api.Document">
     <Position X="5.75" Y="3.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAACEQAAAAAAAAAgAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACEQAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Model\Document.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

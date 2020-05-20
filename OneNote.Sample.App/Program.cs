@@ -46,6 +46,10 @@ namespace OneNote.Sample.App
                 Console.WriteLine("Document Blocks:");
                 Console.WriteLine();
 
+                // get flattened list of elements
+                var list = CompositeElementExtension.Traverse(page.GetChildElements<OutlineElement>(), x => x.GetChildElements<OutlineElement>());
+                var elm = list.FirstOrDefault(x => x.Text.Contains("author"));
+
                 PrintChildElements(page.GetChildElements<Element>());
                 
                 Console.ReadKey();

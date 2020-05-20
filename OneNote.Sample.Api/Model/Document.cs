@@ -11,11 +11,10 @@ namespace OneNote.Sample.Api
         public string DisplayName { get; set; }
         public bool? IsDefault { get; internal set; }
         public Notebook ParentNotebook { get; set; }
-        public List<Page> Pages { get; internal set; }
-
+        
         public Document() : base(ElementType.Document)
         {
-            Pages = new List<Page>();
+           
         }
     }
 }

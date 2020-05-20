@@ -1,5 +1,4 @@
 ﻿using Microsoft.Graph;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace OneNote.Sample.Api
